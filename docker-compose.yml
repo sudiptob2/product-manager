@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./product-manager-backend
+      dockerfile: Dockerfile
+    container_name: product-manager-backend
+    command: 'bash scripts/backend_entrypoint.sh'
+    restart: unless-stopped
+    env_file:
+      - ./product-manager-backend/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./product-manager-backend:/app
+    depends_on:
+      - db
+    networks:
+      - main
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    container_name: product-manager-db
+    env_file:
+      - product-manager-backend/.env
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      - "5437:5432"
+    networks:
+      - main
+
+  web:
+    build:
+      context: ./product-manager-frontend
+      dockerfile: .docker/dev/Dockerfile
+    container_name: product-manager-frontend
+    restart: unless-stopped
+    volumes:
+      - "./product-manager-frontend:/app"
+    ports:
+      - "3000:3000"
+    command: >
+      bash -c "cp -rfu /cache/node_modules/. /app/node_modules/  
+      && npm start"
+
+
+volumes:
+  pg-data:
+
+networks:
+  main:
