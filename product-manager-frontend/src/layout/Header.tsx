@@ -7,7 +7,7 @@ const Header: React.FC = () => {
     <>
       <Navbar bg="light">
         <Container>
-          <Navbar.Brand href="#home">Microserve Admin Front</Navbar.Brand>
+          <Navbar.Brand href="#home">Product Manager</Navbar.Brand>
         </Container>
       </Navbar>
     </>
