@@ -1,6 +1,7 @@
 # Overview of the APP
 
-This is a product management application for admin. Here you can upload, edit, delete products. Probably a front-end will show these products to the user if future. 
+This is a product management application for admin. Here you can upload, edit, delete products. Probably a front-end
+will show these products to the user if future.
 
 *Edit functionality is not implemented at this moment*
 
@@ -26,7 +27,8 @@ The basic system requirements are as follows
 
 # Docker environment
 
-For shipping and deploying the application docker-compose is used. All the configurations are in the docker-compose.yml file.
+For shipping and deploying the application docker-compose is used. All the configurations are in the docker-compose.yml
+file.
 
 Key points of the docker-compose.yml is given below.
 
@@ -43,18 +45,22 @@ One virtual network is used
 - main
 
 ## Volumes
+
 For persisting the data of the db container docker volume bind is used.
+
 - pg-data
 
 ## list of the containers
 
 ### product-manager-backend
 
-This container runs under the service name backend. The dockerfile user for this container is located at `product-manager-backend/Dockerfile`. This container is based on python:3.9 image.
+This container runs under the service name backend. The dockerfile user for this container is located
+at `product-manager-backend/Dockerfile`. This container is based on python:3.9 image.
 
 ### product-manager-frontend
 
-The frontend container for the application. The dockerfile is located at `product-manager-frontend/.docker/dev/Dockerfile`. Base image used to build this container is `Node:14`.
+The frontend container for the application. The dockerfile is located
+at `product-manager-frontend/.docker/dev/Dockerfile`. Base image used to build this container is `Node:14`.
 
 ### db container
 
@@ -64,16 +70,16 @@ The container is built using the official `postgres:latest` image pulled from do
 
 To prepare the environment for the first time run the following command
 
-```
-docker-compose build
+```shell
+bash prepare-app.sh
 ```
 
 ## Running
 
 Run the app background
 
-```
-docker-compose up -d
+```shell
+bash start-app.sh
 ```
 
 see the logs of backend
@@ -88,16 +94,22 @@ see the logs of forntend
 docker-compose logs -f web
 ```
 
-see the logs of mysql
+see the logs of database
 
 ```
 docker-compose logs -f db
 ```
 
-## Stopping and removing
+## Stopping
 
+```shell
+bash stop-app.sh
 ```
-docker-compose down
+
+## Removing containers
+
+```shell
+bash remove-app.sh
 ```
 
 # Viewing the app
